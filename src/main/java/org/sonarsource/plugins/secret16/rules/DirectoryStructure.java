@@ -47,11 +47,12 @@ public class DirectoryStructure implements Sensor {
 
                 while ((line = lineReader.readLine()) != null) {
                    if (line.contains("<flow")) {
-                       LOGGER.info("S16 Filename: " + fileName);
+                       LOGGER.info("Scanning filename: " + fileName);
                        int nameAttr = line.indexOf("name=\"")+6;
                        String value = line.substring(nameAttr,line.indexOf("\"",nameAttr));
-                       LOGGER.info("S16 Value: " + value);
+
                        if (!value.equals(fileName)) {
+                           LOGGER.info("Violate flow name rule: " + value);
                            createNewIssue(errorMessage, lineReader.getLineNumber(), mFile, context);
                        }
                    }
